@@ -15,6 +15,21 @@ export const PlayerProvider = ({ children }) => {
     setRecentlyPlayed(stored);
   }, []);
 
+  // Get API base URL from environment variable or use relative path for production
+  const getApiUrl = () => {
+    // In production (Vercel), use relative path to hit serverless functions
+    // In development, use localhost:5000 if VITE_API_URL is not set
+    if (import.meta.env.VITE_API_URL) {
+      return import.meta.env.VITE_API_URL;
+    }
+    // Check if we're in development mode
+    if (import.meta.env.DEV) {
+      return 'http://localhost:5000';
+    }
+    // In production, use relative path (Vercel serverless functions)
+    return '';
+  };
+
   // ⭐ Clean, correct, backend-matching search function
   const fetchSearch = async (query, type = "all") => {
     if (!query || query.trim() === "") return [];
@@ -24,7 +39,9 @@ export const PlayerProvider = ({ children }) => {
 
     // only add type if searching a specific category
     if (type !== "all") params.append("type", type);
-    const finalURL = `http://localhost:5000/api/search?${params.toString()}`;
+    
+    const apiBase = getApiUrl();
+    const finalURL = `${apiBase}/api/search?${params.toString()}`;
     console.log("🔵 FRONTEND → BACKEND:", finalURL);
 
     try {
@@ -43,7 +60,8 @@ export const PlayerProvider = ({ children }) => {
 
   // ⭐ Playlist API (keep same)
   const fetchPlaylist = async (playlistId) => {
-    const res = await fetch(`http://localhost:5000/api/playlist/${playlistId}`);
+    const apiBase = getApiUrl();
+    const res = await fetch(`${apiBase}/api/playlist/${playlistId}`);
     const data = await res.json();
     return data;
   };
