@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+
+.nav-s {
+  @apply  rounded-lg bg-red-300/5 ml-1 p-1 hover:border-l-5 text-lg cursor-pointer flex items-center gap-2 ; /* Tailwind utilities */
+}
+.s-btn {
+  @apply  rounded-lg border-2 border-red-300/30  text-lg cursor-pointer  p-2 w-[70px] md:w-[100px] mt-4; /* Tailwind utilities */
+}
+.sec-card{
+  @apply  h-[100px] bg-red-300/10  hover:border-4 border-white  rounded-xl  flex gap-5 items-center
+}
+
+@layer base {
+  body{
+    background-color: black;
+    width: 100%;
+    height: 100vh;
+   
+  }
+}
+/* styles.css or App.css */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;           /* width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;  /* track color */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #563939;  /* thumb color */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #dc2626;  /* hover color */
+}
